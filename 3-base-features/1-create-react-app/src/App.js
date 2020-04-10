@@ -37,12 +37,24 @@ class App extends Component {
   }
 
   render() {
+    // Inline style object Camel cased, locally scoped and string attributes
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px border blue',
+      padding: '8px',
+      cursor: 'pointer'
+    }
+
     return (
       <div className="App">
         <h1>Hi, I'm a real React App</h1>
         <p>This is really working</p>
         {/* Components are reusable and configurable */}
-        <button onClick={() => this.switchNameHandler('Pika')}>Switch Names</button>
+        <button 
+          // Inline styles are imported with style=
+          style={style}
+          onClick={() => this.switchNameHandler('Pika')}>Switch Names</button>
         <Person
           name={this.state.persons[0].name}
           age={this.state.persons[0].age}
