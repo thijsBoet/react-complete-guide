@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import "./App.css";
+import styled from 'styled-components'
 
+import "./App.css";
 import Person from "./Person/Person";
 
 class App extends Component {
@@ -50,7 +51,11 @@ class App extends Component {
       borderRadius: "5px",
       padding: "8px",
       cursor: "pointer",
-      outline: "none"
+      outline: "none",
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
     };
 
     let persons = null;
@@ -68,14 +73,26 @@ class App extends Component {
           })}
         </div>
       );
-      style.backgroundColor= "green";
+      style.backgroundColor = "green";
       style.color = "white"
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      };
+    }
+
+    let classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold');
     }
 
     return (
       <div className="App">
         <h1>Hi, I'm a real React App</h1>
-        <p>This is really working</p>
+        <p className={classes.join(' ')}>This is really working</p>
         <button 
           style={style} 
           onClick={this.togglePersonsHandler}>
