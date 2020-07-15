@@ -15,26 +15,49 @@ const app = props => {
     otherState: 'some other value'
   });
 
-  const switchNameHandler = () => {
+  const switchNameHandler = (newName) => {
   // Instead this.setState use the destructured SetPersonState
     setPersonsState({
       persons: [
-        { name: "Maximilian", age: 28 },
+        { name: newName, age: 40 },
         { name: "Manu", age: 29 },
         { name: "Stephanie", age: 27 },
       ],
     });
   };
+
+  const nameChangeHandler = e => {
+    e.preventDefault();
+    const value = e.target.value;
+    setPersonsState({
+      persons: [
+        { name: "Max", age: 40 },
+        { name: value, age: 29 },
+        { name: "Stephanie", age: 27 },
+      ],
+    });
+  }
+  
   // SetPersonState deletes/replaces old state, make sure to copy all future necessary STATE data
   const [ otherState, setOtherState ] = useState('some other value');
 
-
+  const style = {
+    backgroundColor : "white",
+    font: 'inherit',
+    border: '1px solid blue',
+    padding: '8px'
+  }
 
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
-        <button onClick={switchNameHandler}>Switch Name</button>
+        {/* Can pas arguments through function by converting it to an arrow function */}
+        <button 
+          style={style}
+          onClick={() => switchNameHandler("matthijs")}>
+          Switch Name
+        </button>
         <Person
           name={personsState.persons[0].name}
           age={personsState.persons[0].age}
@@ -42,6 +65,9 @@ const app = props => {
         <Person
           name={personsState.persons[1].name}
           age={personsState.persons[1].age}
+          // Can pass function directly without this. because it is no longer a class, but a function with hooks
+          click={switchNameHandler.bind(this, "Matthijs")}
+          changed={nameChangeHandler}
         >
           My Hobbies: Racing
         </Person>
