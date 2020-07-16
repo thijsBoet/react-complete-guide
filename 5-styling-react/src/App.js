@@ -1,8 +1,23 @@
 import React, { Component } from "react";
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 import "./App.css";
 import Person from "./Person/Person";
+
+const StyledButton = styled.button`
+  /* Conditional created in StyledButton component => alt={this.state.persons} readout via props.alt */
+  background: ${(props) => (props.alt ? "green" : "red")};
+  color: white;
+  font: inherit;
+  border: 1px solid black;
+  padding: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background: lightgreen;
+    color: black;
+  }
+`;
 
 class App extends Component {
   state = {
@@ -43,20 +58,6 @@ class App extends Component {
   };
 
   render() {
-    const style = {
-      backgroundColor: "white",
-      color: "black",
-      font: "inherit",
-      border: "1px border blue",
-      borderRadius: "5px",
-      padding: "8px",
-      cursor: "pointer",
-      outline: "none",
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
-    };
 
     let persons = null;
 
@@ -73,31 +74,30 @@ class App extends Component {
           })}
         </div>
       );
-      style.backgroundColor = "green";
-      style.color = "white"
-      style[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      };
     }
 
-    let classes = [];
-    if (this.state.persons.length <= 2) {
-      classes.push('red');
-    }
-    if (this.state.persons.length <= 1) {
-      classes.push('bold');
-    }
+    // create variables array for className
+    const classes = [];
+
+    // conditional for adding classes
+    this.state.persons.length <= 2 
+      ? classes.push("red") 
+      : classes.push("");
+    
+    this.state.persons.length <= 1 
+      ? classes.push("bold") 
+      : classes.push("");
 
     return (
       <div className="App">
         <h1>Hi, I'm a real React App</h1>
-        <p className={classes.join(' ')}>This is really working</p>
-        <button 
-          style={style} 
+        {/* joins red and bold into a combined string with a space in between */}
+        <p className={classes.join(" ")}>This is really working</p>
+        <StyledButton 
+          alt={this.state.persons} 
           onClick={this.togglePersonsHandler}>
-          Show Persons
-        </button>
+            Show Persons
+        </StyledButton>
         {persons}
       </div>
     );
