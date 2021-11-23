@@ -1,8 +1,7 @@
 import ExpenseItem from './ExpenseItem';
 
-
-export default function Expenses({ expenses }) {
-	return expenses.map(expense => 
+const Expenses = ({ expenses }) => {
+	return expenses.map(expense => (
 		<ExpenseItem
 			key={expense.id}
 			id={expense.id}
@@ -10,5 +9,7 @@ export default function Expenses({ expenses }) {
 			amount={expense.amount}
 			date={expense.date}
 		/>
-	);
-}
+	));
+};
+
+export default Expenses;
