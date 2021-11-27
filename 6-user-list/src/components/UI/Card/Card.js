@@ -1,10 +1,8 @@
-import './card.css';
+import classes from './card.module.css';
 
-const Card = () => {
+const Card = props => {
 	return (
-		<div>
-			<input className='input' type='text' />
-		</div>
+		<div className={`${classes.card} ${props.className}`}>{props.children}</div>
 	);
 };
 
